@@ -1,0 +1,24 @@
+{
+  "name": "create-state",
+  "displayName": "Create State",
+  "version": "1.0.0",
+  "description": "AI-powered knowledge graph for persistent project memory, session continuity, and intelligent code insights. Capture decisions, restore context across sessions, and build institutional knowledge that grows with your codebase.",
+  "author": {
+    "name": "Create State",
+    "email": "support@createstate.ai"
+  },
+  "homepage": "https://createstate.ai",
+  "repository": "https://github.com/Create-State/cursor-plugin",
+  "license": "MIT",
+  "keywords": [
+    "knowledge-graph",
+    "ai-memory",
+    "session-continuity",
+    "mcp",
+    "context",
+    "world-model",
+    "code-analysis",
+    "project-memory"
+  ],
+  "logo": "assets/logo.svg"
+}

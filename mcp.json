@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "create-state": {
+      "url": "https://createstate.ai/mcp/",
+      "auth": {
+        "type": "oauth"
+      }
+    }
+  }
+}

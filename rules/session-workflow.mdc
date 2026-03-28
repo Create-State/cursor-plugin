@@ -1,0 +1,73 @@
+---
+description: Session start and end workflow for Create State knowledge graph - restore context at start, create handoffs at end
+alwaysApply: true
+---
+
+# Create State Session Workflow
+
+## Session Start - Do This Every Time
+
+At the START of each new conversation:
+
+1. Call `listHandoffPackages` to check for recent session handoffs
+2. If a handoff exists from the last 24 hours:
+   - Call `restoreFromHandoff` with the most recent handoff_id
+   - This restores AI thinking state AND sets the active model
+   - All captures will now auto-target this model
+3. If no recent handoff:
+   - Call `getProjectWorldModel` with the project name
+   - This loads context AND sets it as active
+   - Ask user which model to use if they have multiple
+
+Once the active model is set, all captures automatically target it.
+
+## KEY CONCEPT: Active Model
+
+When you load a world model (via `restoreFromHandoff` or `getProjectWorldModel`), it becomes
+your "active model". All subsequent captures automatically go to this model - no need to
+specify model_id or project_path.
+
+## During Conversation - Periodic Refresh
+
+For long conversations (10+ exchanges), periodically call `getProactiveInsights` to:
+- Catch any new knowledge that may have been added
+- Refresh your understanding of the project state
+- Get AI-generated suggestions based on captured context
+
+## Session End - Create Handoff
+
+At the end of productive sessions, call `createSessionHandoff` with:
+- ai_model: Your model identifier (e.g., "Claude Opus 4")
+
+The handoff automatically saves:
+- Your active model (restored on next session)
+- AI thinking state
+- Pending insights and hypotheses
+- Session context for seamless continuation
+
+## The Knowledge Loop
+
+```
+Session Start:
+  restoreFromHandoff (if recent) OR getProjectWorldModel
+       |
+       v
+  Active model is now set - all captures auto-target it!
+       |
+       v
+Work: Read, write, discuss code normally
+       |
+       v
+  [QUERY when seeking context]
+  - "Why" questions -> searchProjectKnowledge
+  - Code structure questions -> queryWorldModel
+       |
+       v
+  [CAPTURE before responding to user]
+       |
+       v
+  [At natural breakpoints: synthesizeProjectContext]
+       |
+       v
+Session End: createSessionHandoff -> Saves active model + AI state
+```

@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "python ./scripts/check-setup.py"
+      }
+    ]
+  }
+}

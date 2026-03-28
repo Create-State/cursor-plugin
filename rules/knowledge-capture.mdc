@@ -1,0 +1,145 @@
+---
+description: When and how to capture knowledge to the Create State knowledge graph - triggers, rich context format, and capture tools
+alwaysApply: true
+---
+
+# Create State Knowledge Capture
+
+Knowledge not captured is knowledge lost. This is the most important habit.
+
+## STOP AND CAPTURE CHECKLIST
+
+Before responding to the user after completing work, ALWAYS ask yourself:
+
+1. Did I write or modify significant code? -> `captureCode` REQUIRED
+2. Did I make a commit (Git or other VCS)? -> `captureConversationContext` + `captureCode` REQUIRED
+3. Did I discuss architecture or make decisions? -> `captureConversationContext` REQUIRED
+4. Has the user confirmed they pushed/committed? -> Capture REQUIRED
+
+If ANY answer is YES, you MUST capture BEFORE continuing. No exceptions.
+
+## What Triggers Mandatory Capture
+
+**ALWAYS capture after:**
+- Git commits (or commits in any version control system)
+- User says "pushed", "committed", "merged", "deployed"
+- Writing new functions, classes, routes, or components
+- Bug fixes with code changes
+- Configuration or schema changes
+- Architectural discussions or decisions
+- Design trade-offs or technical choices
+- API endpoint additions or modifications
+- Database schema changes
+- Significant refactoring
+
+**Do NOT capture:**
+- Trivial changes (typo fixes, formatting only)
+- Routine file reads without changes
+- Simple questions/answers with no code impact
+
+## How to Capture
+
+### captureCode - For code changes
+
+Parameters:
+- `code`: The actual code content (function, class, or significant block)
+- `language`: python, javascript, typescript, etc.
+- `file_path`: Full path to the file (e.g., "src/web/routes.py")
+- `description`: Brief description of what it does
+- `change_type`: new | update | fix | refactor
+- `ai_model`: Your identifier (e.g., "Claude Opus 4")
+
+### captureConversationContext - For decisions/context
+
+Parameters:
+- `context`: RICH context (see guidelines below)
+- `ai_model`: Your identifier (e.g., "Claude Opus 4")
+
+NOTE: No model_id or project_path needed - uses active model automatically!
+
+## RICH CONTEXT CAPTURE GUIDELINES
+
+Brief summaries lose valuable knowledge. Include ALL of the following that apply:
+
+### 1. Problem/Task Statement
+- What was the original problem or request?
+- What symptoms or errors were observed?
+
+### 2. Investigation/Debugging Process
+- What did you explore to understand the issue?
+- What files/components did you examine?
+- What hypotheses did you form and test?
+
+### 3. Root Cause Analysis
+- What was the actual cause of the issue?
+- What chain of events led to the problem?
+- Why wasn't this obvious initially?
+
+### 4. Architectural Understanding
+- How do the affected components work?
+- What are the relationships between components?
+- What is the data flow or lifecycle?
+
+### 5. Design Decision Rationale
+- What solution did you choose?
+- What alternatives were considered?
+- Why was this approach chosen over alternatives?
+- What trade-offs were made?
+
+### 6. Implementation Details
+- What specific changes were made?
+- What files were modified?
+- What new patterns or conventions were introduced?
+
+### 7. Key Insights for Future
+- What should future developers/AI know about this?
+- What gotchas or non-obvious behaviors exist?
+- What related areas might need attention?
+
+## Example of POOR capture (don't do this)
+
+```
+"Fixed the restart bug. Commit 062a176."
+```
+
+## Example of RICH capture (do this)
+
+```
+## AI Thinking Process Restart Bug - Complete Analysis
+
+### Problem Statement
+AI thinking processes would not resume after server restart.
+
+### Investigation Process
+1. Explored _restore_active_processes() - queries for status='active'
+2. Found stop_service() calls task.cancel() for all tasks
+3. CRITICAL: CancelledError handler was setting status='stopped'
+
+### Root Cause
+When server shuts down, task.cancel() triggers CancelledError, 
+which set status='stopped' and persisted to Neo4j. On restart,
+query for 'active' found nothing.
+
+### Design Decision
+Chose shutdown flag approach over alternatives:
+- Alternative: Don't persist on cancel - rejected (user stops need it)
+- Alternative: New status 'paused_for_restart' - too complex
+- Chosen: shutting_down flag - simple, explicit, no migration needed
+
+### Key Insight
+When building persistent background services: distinguish between
+'stop because user asked' vs 'stop because server is restarting'
+```
+
+The RICH capture preserves thinking and decisions for future sessions!
+
+## Manual Synthesis
+
+Use `synthesizeProjectContext` at natural breakpoints:
+- After completing a major feature or multi-file change
+- Before switching to a different area of work
+- Before creating a session handoff
+- After rapid-fire captures (3-4 quick captures)
+- When user says "let's wrap up" or indicates end of session
+
+This ensures rich details are consolidated while fresh.

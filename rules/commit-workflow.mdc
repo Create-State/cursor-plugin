@@ -1,0 +1,106 @@
+---
+description: Post-commit capture workflow for Create State - ALWAYS capture both context and code after every commit
+alwaysApply: true
+---
+
+# Create State Commit Workflow
+
+## After Commits - MANDATORY (Every Single Time)
+
+After EVERY commit (Git, Mercurial, SVN, or any VCS), IMMEDIATELY call BOTH:
+
+### 1. captureConversationContext
+
+Include:
+- Commit hash/ID and message (if available)
+- Summary of what was changed and why
+- Files modified
+- Key decisions made during the work
+
+### 2. captureCode for EACH significant file changed
+
+- New functions, classes, routes, or components
+- Call MULTIPLE times for multiple significant files
+- Include the actual code, not just descriptions
+
+## CRITICAL
+
+Both captures are REQUIRED. Context without code is incomplete.
+
+```
+Every commit = captureConversationContext + captureCode(s)
+```
+
+NO EXCEPTIONS.
+
+DO NOT report success to the user until captures are complete.
+
+## Example Workflow
+
+After running: `git commit -m "feat: add user authentication"`
+
+### Step 1: Capture Context
+
+Call `captureConversationContext` with:
+
+```
+context: "Commit abc123: feat: add user authentication
+
+## Summary
+Added JWT-based authentication with bcrypt password hashing.
+
+## Files Modified
+- src/auth/auth_service.py (new)
+- src/auth/jwt_handler.py (new)
+- src/web/routes.py (updated)
+- tests/test_auth.py (new)
+
+## Key Decisions
+- Chose JWT over session tokens for stateless auth
+- Used refresh tokens for better security
+- bcrypt with cost factor 12 for password hashing"
+```
+
+### Step 2: Capture Code (for each significant file)
+
+Call `captureCode` for auth_service.py:
+
+```
+code: [the actual auth service code]
+language: python
+file_path: src/auth/auth_service.py
+description: JWT authentication service with login, register, and token refresh
+change_type: new
+ai_model: Claude Opus 4
+```
+
+Call `captureCode` for jwt_handler.py:
+
+```
+code: [the actual JWT handler code]
+language: python
+file_path: src/auth/jwt_handler.py
+description: JWT token creation and validation utilities
+change_type: new
+ai_model: Claude Opus 4
+```
+
+## Why This Matters
+
+The knowledge graph preserves:
+- **What** changed (the code itself)
+- **Why** it changed (the context and decisions)
+- **How** it evolved (version history)
+
+Future AI sessions can then:
+- Understand architectural decisions
+- Avoid re-making the same mistakes
+- Build on existing patterns
+- Maintain consistency across the codebase
+
+## Automatic Synthesis
+
+After every 5 captures, the system automatically synthesizes knowledge:
+- Creates comprehensive project summary
+- Includes architecture, key files, tech stack, priorities, issues
+- Retrieved automatically by `getProjectWorldModel`
