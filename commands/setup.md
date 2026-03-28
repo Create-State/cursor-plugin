@@ -78,4 +78,4 @@ Ask me to run `listHandoffPackages` - if it returns results (or an empty list), 
 
 **Need help?**
 - Email: support@createstate.ai
-- Docs: https://createstate.ai/docs
+- Docs: https://createstate.ai/web/documentation

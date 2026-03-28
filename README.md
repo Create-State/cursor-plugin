@@ -233,7 +233,7 @@ Restart Cursor to apply the changes.
 
 A free tier is available to try out the platform. Enhanced options are available for teams and power users.
 
-Visit [createstate.ai/pricing](https://createstate.ai/pricing) for details.
+Visit [createstate.ai/web/#pricing](https://www.createstate.ai/web/#pricing) for details.
 
 ## Resources
 
