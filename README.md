@@ -18,6 +18,45 @@ Without persistent memory, every AI conversation starts from scratch. You explai
 - **Knowledge Graph** - Automatically captures and visualizes relationships in your codebase
 - **Proactive Insights** - Background analysis surfaces issues and improvements you might have missed
 
+## How It Works
+
+```
++==========================================+
+|          THE KNOWLEDGE LIFECYCLE         |
++==========================================+
+
+1. CAPTURE           2. SYNTHESIZE        3. HANDOFF
+   Code & Context       Knowledge            Session
+
+     [+++]               [=]                 [>>>]
+      |||                 |                    |
+      vvv                 v                    v
++----------+        +----------+         +----------+
+| Growing  |  -->   | Rich     |  -->    | Save AI  |
+| Graph    |        | Summary  |         | State    |
++----------+        +----------+         +----------+
+                                              |
+                         +--------------------+
+                         |
+                         v
+4. RESTORE           5. CONTINUE
+   Context              Working
+
+    [<<<]               [...]
+      |                   |
+      v                   v
++----------+        +----------+
+| Load AI  |  -->   | Full     |
+| State    |        | Context  |
++----------+        +----------+
+```
+
+As you work, Create State **captures** decisions and code into a knowledge graph. It **synthesizes** this into rich summaries. When you leave, create a **handoff** to save your AI's thinking state. Next session, **restore** and continue with full context.
+
+![Knowledge Graph Visualization](https://www.createstate.ai/static/images/world-model-graph-light.png)
+
+*Your project's knowledge graph grows with every interaction, connecting code, decisions, and insights.*
+
 ## Quick Start
 
 ### 1. Install the Plugin
