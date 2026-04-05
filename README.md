@@ -69,6 +69,8 @@ Search for "Create State" in Cursor's plugin marketplace.
 git clone https://github.com/Create-State/cursor-plugin.git
 ```
 Then install from local path in Cursor (see [Cursor's plugin documentation](https://cursor.com/docs/plugins) for details).
+(if you're using Remote SSH, install the plugin on your remote machine, not the local machine running the Cursor IDE)
+(Hint: This path is usually ```~/.cursor/plugins/local/create-state``` or something similar).
 
 ### 2. Authenticate
 
