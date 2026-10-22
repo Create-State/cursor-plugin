@@ -68,9 +68,12 @@ If no recent handoff exists, load the world model directly:
 ```
 Tool: getProjectWorldModel
 Arguments:
-  project_path: "."
+  model_name: "<world model display name>"
   include_insights: true
 ```
+
+A display name must go in model_name or project_path. model_id is a UUID;
+passing a name there is a miss.
 
 Or if the user has multiple models:
 
@@ -80,6 +83,24 @@ Arguments: {}
 ```
 
 Then load the specific model they want to work on.
+
+### Optional: Specify Display Mode
+
+You can optimize how the world model is displayed by adding `rendering_mode`:
+
+```
+Tool: getProjectWorldModel
+Arguments:
+  model_name: "<world model display name>"
+  include_insights: true
+  rendering_mode: "taste_topology"  # or semantic_graph, conceptual_identity, integrated
+```
+
+Available modes:
+- `taste_topology` - Best for reviews, experiences, recommendations
+- `semantic_graph` - Best for code and technical projects  
+- `conceptual_identity` - Best for research and documentation
+- `integrated` - Balanced view (default, auto-detected)
 
 ## What Gets Restored
 
@@ -119,7 +140,7 @@ This makes captures simple and intuitive.
 ### Multiple world models
 - Use `listUserWorldModels` to show options
 - Let user choose which project to work on
-- Load with `getProjectWorldModel` using project_name
+- Load with `getProjectWorldModel` using model_name (not model_id)
 
 ### Handoff restoration fails
 - Check if handoff_id is valid

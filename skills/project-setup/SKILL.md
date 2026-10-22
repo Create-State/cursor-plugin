@@ -108,9 +108,12 @@ Confirm everything is working:
 ```
 Tool: getProjectWorldModel
 Arguments:
-  project_path: "."
+  model_name: "<the world model you just created>"
   include_insights: true
 ```
+
+A display name must go in model_name or project_path. model_id is a UUID;
+passing a name there is a miss.
 
 This should return the newly created model with initial context.
 

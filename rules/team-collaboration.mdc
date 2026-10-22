@@ -1,0 +1,182 @@
+---
+description: Team collaboration workflows for Create State - working capacity, project sharing, and team intelligence features
+alwaysApply: false
+globs:
+  - "**/*"
+---
+
+# Create State Team Collaboration
+
+Team features enable enterprise-grade collaboration on projects. This rule applies when working in a team context.
+
+## Understanding Working Capacity
+
+When a project is shared with multiple teams, you work under a specific "team capacity":
+
+- **Working capacity** determines which team's AI policy applies
+- **Attribution** - your contributions are associated with that team
+- **Policy enforcement** - the team's AI restrictions and preferences apply
+
+### Checking Working Capacity
+
+Before starting work on a shared project, check the working capacity:
+
+```
+Tool: getWorkingCapacity
+Arguments:
+  world_model_id: "<project ID>"
+```
+
+This shows:
+- Current team context you're working under
+- Available team options (if project is shared with multiple teams)
+- AI policy restrictions that apply
+
+### Switching Working Capacity
+
+If you need to work under a different team's context:
+
+```
+Tool: setWorkingCapacity
+Arguments:
+  world_model_id: "<project ID>"
+  team_id: "<team ID>"  # or omit for personal capacity
+```
+
+## Team Intelligence Features
+
+### Finding Topic Experts
+
+When you need to know who has expertise in an area:
+
+```
+Tool: findTopicExpert
+Arguments:
+  topic: "authentication"  # or any topic
+  team_id: "<optional team filter>"
+```
+
+Use this when:
+- User asks "who knows about X?"
+- You need to suggest who to consult on a topic
+- Identifying code reviewers for specific areas
+
+### Getting Team Pulse
+
+For an overview of team activity:
+
+```
+Tool: getTeamPulse
+Arguments:
+  team_id: "<optional team filter>"
+  world_model_id: "<optional project filter>"
+```
+
+Shows:
+- Active team members
+- Recent activity summary
+- Top contributors
+- What's happening across the team
+
+### Checking Colleague Activity
+
+To see what a specific colleague has been working on:
+
+```
+Tool: getColleagueActivity
+Arguments:
+  colleague_email: "developer@example.com"
+  days: 7  # lookback period
+```
+
+Use this when:
+- User asks "what has [person] been working on?"
+- Preparing for standups or status updates
+- Understanding who touched specific code
+
+### Contributor Statistics
+
+For detailed contribution metrics:
+
+```
+Tool: getContributorStats
+Arguments:
+  contributor_email: "developer@example.com"
+  world_model_id: "<optional project filter>"
+```
+
+Shows:
+- Total contributions
+- Breakdown by type (code, context, decisions)
+- AI models used
+- Activity patterns
+
+## Project Sharing
+
+### Sharing a Project with a Team
+
+```
+Tool: shareProjectWithTeam
+Arguments:
+  team_id: "<team ID>"
+  world_model_id: "<project ID>"
+  permission: "write"  # read, write, or admin
+```
+
+Permission levels:
+- **read**: View project knowledge
+- **write**: Capture knowledge, modify context
+- **admin**: Full control including sharing
+
+### Listing Team Projects
+
+To see what projects a team has access to:
+
+```
+Tool: listTeamProjects
+Arguments:
+  team_id: "<team ID>"
+```
+
+## Team Management
+
+### Listing Your Teams
+
+```
+Tool: listTeams
+Arguments: {}
+```
+
+### Inviting Team Members
+
+```
+Tool: inviteToTeam
+Arguments:
+  team_id: "<team ID>"
+  email: "newmember@example.com"
+  role: "member"  # admin, member, or viewer
+```
+
+Roles:
+- **admin**: Manage team settings and members
+- **member**: Standard team member
+- **viewer**: Read-only access
+
+## Multi-Team Policy Handling
+
+When projects are shared across teams with different AI policies:
+
+1. **Least-permissive intersection** - The most restrictive combination applies
+2. **Check working capacity** - Know which team context is active
+3. **Policy transparency** - The system shows which restrictions apply
+
+Example: If Team A allows all AI models but Team B restricts to approved models,
+working under Team B's capacity applies their restrictions.
+
+## Best Practices
+
+1. **Set capacity explicitly** when starting work on shared projects
+2. **Use team intelligence** to find the right people for questions
+3. **Attribute contributions** by working under the correct team context
+4. **Check team pulse** regularly to stay aligned with team activity
+5. **Share projects thoughtfully** with appropriate permission levels

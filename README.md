@@ -147,6 +147,28 @@ You can also ask your AI to remember things explicitly:
 
 > "Remember that we decided to use Redis for sessions instead of JWT"
 
+### Capturing Images
+
+Create State can capture screenshots, diagrams, and other visual content:
+
+> "Save this screenshot of the login page"
+
+> "Capture this architecture diagram to the knowledge graph"
+
+> "Add this error screenshot with context about the bug"
+
+Images are processed with Vision AI to generate descriptions and become searchable alongside your code and decisions.
+
+### Finding Images
+
+Search for images using natural language:
+
+> "Find that diagram about the auth flow"
+
+> "Show me screenshots of the dashboard"
+
+> "Search for architecture diagrams"
+
 ### Finding Past Knowledge
 
 When you need to recall previous decisions or context:
@@ -188,6 +210,91 @@ The plugin includes rules that guide your AI to:
 - **Preserve session state** when you're done working
 
 You don't need to remember commands or tool names. Just work naturally, and the important stuff gets captured.
+
+## Teams Features (Teams Tier)
+
+Teams and Enterprise subscribers get access to collaboration features that help
+teams work together more effectively. Just ask your AI naturally:
+
+### Team Management
+
+> "What teams am I part of?"
+
+> "Create a team called 'Backend Squad' for our API developers"
+
+> "Invite sarah@company.com to the Backend Squad team"
+
+> "Show me the members of the Backend Squad"
+
+### Project Sharing
+
+> "Share this project with the Backend Squad"
+
+> "What projects does the Backend Squad have access to?"
+
+> "Remove the billing-service project from Backend Squad"
+
+### Team Intelligence
+
+**Team Pulse** - Quick overview of team activity:
+
+> "What's the team been working on?"
+
+> "Show me the pulse for Backend Squad"
+
+**Find Experts** - Discover who knows what:
+
+> "Who on the team knows about authentication?"
+
+> "Find an expert on database optimization"
+
+> "Who should I ask about the billing system?"
+
+**Colleague Activity** - See what teammates are doing:
+
+> "What has sarah@company.com been working on?"
+
+> "Show me John's recent contributions to this project"
+
+### Working Capacity
+
+Control which team is actively working on a project:
+
+> "Who's currently working on this project?"
+
+> "Set the Backend Squad as the working team for this project"
+
+> "Switch this project to my personal workspace"
+
+### Example Teams Workflow
+
+```
+You: "Morning! What team projects need attention?"
+
+AI: [Checks team pulse]
+    "The Backend Squad has 3 active projects. The payment-api 
+     saw activity from Sarah yesterday - she captured some 
+     decisions about the refund flow. Want me to show details?"
+
+You: "Yes, and who's the best person to ask about refunds?"
+
+AI: [Finds topic expert]
+    "Based on captured knowledge, Sarah has the most expertise 
+     in the refund flow. She captured 12 related decisions and 
+     8 code patterns. Michael also has some context from earlier 
+     work on the billing module."
+
+You: "Great. Let me check what Sarah did specifically."
+
+AI: [Gets colleague activity]
+    "Sarah's recent activity on payment-api:
+     - Captured decision: Use idempotency keys for refund requests
+     - Updated code: refund_processor.py with retry logic
+     - Captured insight: Stripe webhook timing considerations"
+```
+
+**Note:** Teams features require a Teams or Enterprise subscription. Visit
+[createstate.ai/web/#pricing](https://www.createstate.ai/web/#pricing) for details.
 
 ## Example Workflow
 

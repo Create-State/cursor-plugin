@@ -35,6 +35,15 @@ NO EXCEPTIONS.
 
 DO NOT report success to the user until captures are complete.
 
+## Capture Phase for Commits
+
+Post-commit captures are ALWAYS `capture_phase: "implementation"` because commits represent completed work.
+
+This triggers automatic status transitions:
+- Related planning nodes (Decisions, Insights) transition to implemented status
+- Draft CodeEntity nodes become active
+- Proposed Requirements become implemented
+
 ## Example Workflow
 
 After running: `git commit -m "feat: add user authentication"`
@@ -59,6 +68,7 @@ Added JWT-based authentication with bcrypt password hashing.
 - Chose JWT over session tokens for stateless auth
 - Used refresh tokens for better security
 - bcrypt with cost factor 12 for password hashing"
+capture_phase: implementation
 ```
 
 ### Step 2: Capture Code (for each significant file)
@@ -72,6 +82,7 @@ file_path: src/auth/auth_service.py
 description: JWT authentication service with login, register, and token refresh
 change_type: new
 ai_model: Claude Opus 4
+capture_phase: implementation
 ```
 
 Call `captureCode` for jwt_handler.py:
@@ -83,6 +94,7 @@ file_path: src/auth/jwt_handler.py
 description: JWT token creation and validation utilities
 change_type: new
 ai_model: Claude Opus 4
+capture_phase: implementation
 ```
 
 ## Why This Matters

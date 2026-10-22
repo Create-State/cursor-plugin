@@ -1,8 +1,8 @@
 {
   "name": "create-state",
   "displayName": "Create State",
-  "version": "1.0.0",
-  "description": "AI-powered knowledge graph for persistent project memory, session continuity, and intelligent code insights. Capture decisions, restore context across sessions, and build institutional knowledge that grows with your codebase.",
+  "version": "1.3.0",
+  "description": "AI-powered knowledge graph for persistent project memory, session continuity, and intelligent code insights. Capture code, decisions, and images (screenshots, diagrams). Restore context across sessions and build institutional knowledge that grows with your codebase. Teams tier adds collaboration, working capacity, and team intelligence features.",
   "author": {
     "name": "Create State",
     "email": "support@createstate.ai"
@@ -18,7 +18,14 @@
     "context",
     "world-model",
     "code-analysis",
-    "project-memory"
+    "project-memory",
+    "teams",
+    "enterprise",
+    "collaboration",
+    "images",
+    "screenshots",
+    "diagrams",
+    "multimodal"
   ],
   "logo": "assets/logo.svg"
 }
